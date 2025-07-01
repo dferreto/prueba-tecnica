@@ -73,7 +73,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-right: 320px; /* Más a la izquierda (menos margen) */
+  margin-right: 420px; /* Más a la izquierda (menos margen) */
 }
 
 /* Íconos */

@@ -35,7 +35,7 @@ export default function LlantaConCarrusel() {
 
   const total = cards.length;
   const stepAngle = 360 / total;
-  const sens = 0.08;
+  const sens = dimensions.isMobile ? 0.18 : 0.08;
   const snapTime = 400;
 
   // Estado para texto fijo arriba, inicializado al card norte actual
@@ -158,25 +158,32 @@ export default function LlantaConCarrusel() {
 
   return (
     <>
-      <div className="half-page-background" />
-      <div className="galeria-contenedor">
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-            alignItems: 'flex-start',
-            transform: 'translateY(50px)', // Mismo desplazamiento que la imagen
-          }}
-        >
-          <div className="galeria-texto">Galería de Aventuras</div>
-          <button className="galeria-btn">
-            Ver galería <span className="arrow">➜</span>
-          </button>
-        </div>
+<div className="half-page-background" />
+<div className="galeria-contenedor">
+  <div  style={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    alignItems: 'flex-start',
+    transform: 'translateY(50px)', // Mismo desplazamiento que la imagen
+  }}
+>
+    <div className="galeria-texto">Galería de Aventuras</div>
+    <button className="galeria-btn">
+      Ver galería <span className="arrow">➜</span>
+    </button>
+  </div>
 
-        <img src="/img/021.jpg" alt="Galería" className="galeria-imagen" />
-      </div>
+<img
+  src="/img/021.jpg"
+  alt="Galería"
+  className="galeria-imagen"
+/>
+
+</div>
+
+
+
 
       <Header />
 
@@ -191,7 +198,6 @@ export default function LlantaConCarrusel() {
           borderRadius: '50%',
           overflow: 'visible',
           marginTop: dimensions.isMobile ? 400 : 420,
-          touchAction: 'none', // Importante para evitar scroll al tocar el carrusel en móvil
         }}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
@@ -202,16 +208,40 @@ export default function LlantaConCarrusel() {
         onTouchEnd={onTouchEnd}
       >
         {/* Texto fijo en parte superior derecha */}
-        <div className={`texto-info-container ${dimensions.isMobile ? 'mobile' : 'desktop'}`}>
-          <div className="texto-info-titulo">
-            Recorrido dentro de
-            <br />
-            nuestro bosque {textCard >= 0 ? cards[textCard]?.title : ''}.
-          </div>
-          <div className="texto-info-subtitulo" style={{ fontSize: dimensions.isMobile ? 11 : 18 }}>
-            <div className="texto-info-subtitulo titulo-superquads-pequeno">SUPER QUADS</div>
-          </div>
-        </div>
+{/* Texto fijo en parte superior derecha */}
+<div
+  className={`texto-info-container ${dimensions.isMobile ? 'mobile' : 'desktop'}`}
+>
+ <div className="texto-info-titulo">
+  {dimensions.isMobile ? (
+    <>
+      Recorrido dentro<br />
+      de nuestro bosque<br />
+      {textCard >= 0 ? cards[textCard]?.title.replace(/ /g, '\u00AD ') : ''}.
+    </>
+  ) : (
+    <>
+      Recorrido dentro de<br />
+      nuestro bosque<br />
+      {textCard >= 0 ? cards[textCard]?.title : ''}.
+    </>
+  )}
+</div>
+
+
+
+  <div
+    className="texto-info-subtitulo"
+    style={{ fontSize: dimensions.isMobile ? 11 : 18 }}
+  >
+    <div className="texto-info-subtitulo titulo-superquads-pequeno">
+      SUPER QUADS
+    </div>
+  </div>
+</div>
+
+
+
 
         {/* círculo rojo + llanta */}
         <div
@@ -223,8 +253,7 @@ export default function LlantaConCarrusel() {
             border: '2px solid red',
             transform: `rotate(${rotation}deg)`,
             transition: dragging.current || snapping.current ? 'none' : 'transform 0.3s',
-            // pointerEvents removed to allow interaction
-            touchAction: 'none', // también importante aquí para touch
+            pointerEvents: 'none',
           }}
         >
           <img
@@ -306,7 +335,7 @@ export default function LlantaConCarrusel() {
                 }}
                 draggable={false}
               />
-              <span style={{ fontWeight: 600, fontSize: 14 }}>{c.title}</span>
+              <span style={{ fontWeight: 600, fontSize: 12 }}>{c.title}</span>
             </div>
           );
         })}
