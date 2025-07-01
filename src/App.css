@@ -1,0 +1,22 @@
+html, body {
+  height: 100%; /* Asegura que ocupen toda la altura */
+  overflow: hidden; /* Previene el scroll en ambas */
+  color: black;
+}
+
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+
+
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem; /* menos padding en móvil */
+  }
+}
+
