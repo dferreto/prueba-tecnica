@@ -174,15 +174,10 @@ export default function LlantaConCarrusel() {
     </button>
   </div>
 
- <img
+<img
   src="/img/021.jpg"
   alt="Galería"
-  style={{
-  width: '330px',
-  height: '200px',
-  alignSelf: 'flex-end',
-  transform: 'translateY(100px)', // mueve la imagen 40px hacia abajo
-}}
+  className="galeria-imagen"
 />
 
 </div>

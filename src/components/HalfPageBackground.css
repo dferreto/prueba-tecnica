@@ -53,13 +53,22 @@
   background-color: #c61e1e;
 }
 
+.galeria-imagen {
+  width: 330px;
+  height: 200px;
+  align-self: flex-end;
+  transform: translateY(100px);
+}
 
 
-@media (min-width: 768px) {
-  .galeria-contenedor {
-    padding-left: 10px;
-    bottom: 12vh; /* más abajo que antes (antes 18vh) */
+@media (max-width: 767px) {
+
+    .galeria-imagen {
+    width: 180px;
+    height: 140px;
+    transform: translateY(50px) translateX(-30px); /* mueve hacia la izquierda */
   }
+
   .galeria-texto {
     font-size: 40px;
   }
