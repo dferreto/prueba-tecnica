@@ -1,40 +1,35 @@
-/* responsive.css */
 
-/* Base styles for larger screens (desktop first) */
 body {
     font-size: 16px;
 }
 
-/* Medium screens (tablets) */
+
 @media (max-width: 768px) {
     body {
         font-size: 14px;
     }
 
-    /* Example adjustments for components */
     .circular-showcase {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust grid for tablets */
     }
 }
 
-/* Small screens (mobile phones) */
 @media (max-width: 480px) {
     body {
         font-size: 12px;
     }
 
-    /* Further adjustments for mobile */
+ 
     .circular-showcase {
-        grid-template-columns: 1fr; /* Stack items on mobile */
+        grid-template-columns: 1fr; 
     }
 
     .circular-item {
-        margin-bottom: 20px; /* Add space between stacked items */
+        margin-bottom: 20px; 
     }
 }
 
-/* Example of specific element adjustments */
-/* Target an image to be full width on small screens */
+
 @media (max-width: 480px) {
     img {
         max-width: 100%;
@@ -42,15 +37,14 @@ body {
     }
 }
 
-/* Example of hiding an element on smaller screens */
-/* Hide a sidebar on mobile */
+
 @media (max-width: 480px) {
     .sidebar {
         display: none;
     }
 }
 
-/* Example of adjusting padding/margin */
+
 @media (max-width: 480px) {
     .container {
         padding: 10px;

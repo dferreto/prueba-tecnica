@@ -24,8 +24,8 @@
 .texto-info-container.mobile {
   position: absolute;
   top: -100px;
-  left: 100%;           /* justo a la derecha del card */
-  margin-left: -67px;     /* pequeña separación */
+  left: 100%;           
+  margin-left: -67px;     
   width: 140px;
   height: auto;
   font-size: 11px;

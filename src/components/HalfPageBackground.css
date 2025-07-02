@@ -1,22 +1,22 @@
 .half-page-background {
   position: fixed;
-  top: 72%; /* Desde la mitad de la pantalla */
+  top: 72%; 
   left: 0;
   width: 100vw;
   height: 50vh;
-  background-color: hsla(0, 0%, 10%); /* Verde semitransparente */
-  z-index: 10; /* Debajo del carrusel */
+  background-color: hsla(0, 0%, 10%); 
+  z-index: 10; 
   pointer-events: none;
 }
 
 .galeria-contenedor {
   position: fixed;
   bottom: 10vh;
-  width: auto; /* ajusta según contenido */
+  width: auto; 
   padding-left: 20px;
   z-index: 20;
   display: flex;
-  flex-direction: row; /* alinea texto y botón junto a la imagen */
+  flex-direction: row; 
   align-items: center;
   gap: 20px;
   
@@ -25,7 +25,7 @@
 
 .galeria-texto {
   font-family: 'Bangers', cursive;
-  font-size: 28px; /* más pequeño que antes (antes 28px) */
+  font-size: 28px; 
   color: white;
   letter-spacing: 1px;
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
@@ -70,7 +70,7 @@
   }
 
    .galeria-texto {
-    font-size: 24px; /* antes 40px, ahora más pequeño */
+    font-size: 24px; 
   }
 }
 

@@ -1,16 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
-import '../index.css';
-import Header from './Header';
-import './HalfPageBackground.css';
-import './CarruselTexto.css';
+import React, { useState, useRef, useEffect } from "react";
+import "../index.css";
+import Header from "./Header";
+import "./HalfPageBackground.css";
+import "./CarruselTexto.css";
 
 const cards = [
-  { id: 1, title: 'Grupos Reducidos', img: '/img/021.jpg' },
-  { id: 2, title: 'Piscina Termal', img: '/img/021.jpg' },
-  { id: 3, title: 'Bosque Privado', img: '/img/021.jpg' },
-  { id: 4, title: 'Experiencia Exclusiva', img: '/img/021.jpg' },
-  { id: 5, title: 'Prioridad: Seguridad', img: '/img/021.jpg' },
-  { id: 6, title: 'Naturaleza: Viva', img: '/img/021.jpg' },
+  { id: 1, title: "Grupos Reducidos", img: "/img/021.jpg" },
+  { id: 2, title: "Piscina Termal", img: "/img/021.jpg" },
+  { id: 3, title: "Bosque Privado", img: "/img/021.jpg" },
+  { id: 4, title: "Experiencia Exclusiva", img: "/img/021.jpg" },
+  { id: 5, title: "Prioridad: Seguridad", img: "/img/021.jpg" },
+  { id: 6, title: "Naturaleza: Viva", img: "/img/021.jpg" },
 ];
 
 const getDimensions = () => {
@@ -62,11 +62,11 @@ export default function LlantaConCarrusel() {
 
   useEffect(() => {
     const onResize = () => setDimensions(getDimensions());
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Card que está "exacto" en norte (270º), redondeando
+
   const highlighted = (() => {
     for (let i = 0; i < total; i++) {
       const ang = (stepAngle * i + rotationRef.current) % 360;
@@ -76,17 +76,17 @@ export default function LlantaConCarrusel() {
     return -1;
   })();
 
-  // Zoom se mantiene en card inicial durante drag, y después en highlighted
+  
   const zoomCard = dragging.current ? draggedHighlighted : highlighted;
 
-  const begin = x => {
+  const begin = (x) => {
     if (snapping.current) cancelAnimationFrame(snapId.current);
     dragging.current = true;
     lastX.current = x;
     setDraggedHighlighted(highlighted);
   };
 
-  const move = x => {
+  const move = (x) => {
     if (!dragging.current || snapping.current) return;
     const dx = x - lastX.current;
     rotationRef.current += dx * sens;
@@ -107,14 +107,14 @@ export default function LlantaConCarrusel() {
     smoothSnap(rotationRef.current);
   };
 
-  const onMouseDown = e => begin(e.clientX);
-  const onMouseMove = e => move(e.clientX);
+  const onMouseDown = (e) => begin(e.clientX);
+  const onMouseMove = (e) => move(e.clientX);
   const onMouseUp = end;
-  const onTouchStart = e => begin(e.touches[0].clientX);
-  const onTouchMove = e => move(e.touches[0].clientX);
+  const onTouchStart = (e) => begin(e.touches[0].clientX);
+  const onTouchMove = (e) => move(e.touches[0].clientX);
   const onTouchEnd = end;
 
-  const snapRot = a => {
+  const snapRot = (a) => {
     let n = a % 360;
     if (n < 0) n += 360;
     const idx = Math.round((270 - n) / stepAngle);
@@ -122,24 +122,25 @@ export default function LlantaConCarrusel() {
     return 270 - idx * stepAngle + turns * 360;
   };
 
-  const smoothSnap = a => {
+  const smoothSnap = (a) => {
     snapping.current = true;
     snapStartTs.current = null;
     startRot.current = a;
     targetRot.current = snapRot(a);
 
-    const step = ts => {
+    const step = (ts) => {
       if (!snapStartTs.current) snapStartTs.current = ts;
       const t = Math.min((ts - snapStartTs.current) / snapTime, 1);
       const ease = 1 - (1 - t) * (1 - t);
-      const val = startRot.current + (targetRot.current - startRot.current) * ease;
+      const val =
+        startRot.current + (targetRot.current - startRot.current) * ease;
       rotationRef.current = val;
       setRotation(val);
       if (t < 1) {
         snapId.current = requestAnimationFrame(step);
       } else {
         snapping.current = false;
-        // Actualizar texto al terminar snap con la card correcta
+        
         const newHighlighted = (() => {
           for (let i = 0; i < total; i++) {
             const ang = (stepAngle * i + targetRot.current) % 360;
@@ -161,7 +162,7 @@ export default function LlantaConCarrusel() {
     const start = scaleAnim;
     const dur = 300;
     let t0 = null;
-    const step = ts => {
+    const step = (ts) => {
       if (!t0) t0 = ts;
       const p = Math.min((ts - t0) / dur, 1);
       const ease = 1 - (1 - p) * (1 - p);
@@ -179,11 +180,11 @@ export default function LlantaConCarrusel() {
       <div className="galeria-contenedor">
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '10px',
-            alignItems: 'flex-start',
-            transform: 'translateY(50px)', // Mismo desplazamiento que la imagen
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            alignItems: "flex-start",
+            transform: "translateY(50px)",
           }}
         >
           <div className="galeria-texto">Galería de Aventuras</div>
@@ -200,13 +201,13 @@ export default function LlantaConCarrusel() {
       <div
         className="carrusel-wrapper"
         style={{
-          position: 'relative',
+          position: "relative",
           width: dimensions.borderSize,
           height: dimensions.borderSize,
-          margin: '0 auto',
-          userSelect: 'none',
-          borderRadius: '50%',
-          overflow: 'visible',
+          margin: "0 auto",
+          userSelect: "none",
+          borderRadius: "50%",
+          overflow: "visible",
           marginTop: dimensions.isMobile ? 400 : 420,
         }}
         onMouseDown={onMouseDown}
@@ -217,9 +218,10 @@ export default function LlantaConCarrusel() {
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        {/* Texto fijo en parte superior derecha */}
         <div
-          className={`texto-info-container ${dimensions.isMobile ? 'mobile' : 'desktop'}`}
+          className={`texto-info-container ${
+            dimensions.isMobile ? "mobile" : "desktop"
+          }`}
         >
           <div className="texto-info-titulo">
             {dimensions.isMobile ? (
@@ -228,7 +230,10 @@ export default function LlantaConCarrusel() {
                 <br />
                 de nuestro bosque
                 <br />
-                {textCard >= 0 ? cards[textCard]?.title.replace(/ /g, '\u00AD ') : ''}.
+                {textCard >= 0
+                  ? cards[textCard]?.title.replace(/ /g, "\u00AD ")
+                  : ""}
+                .
               </>
             ) : (
               <>
@@ -236,7 +241,7 @@ export default function LlantaConCarrusel() {
                 <br />
                 nuestro bosque
                 <br />
-                {textCard >= 0 ? cards[textCard]?.title : ''}.
+                {textCard >= 0 ? cards[textCard]?.title : ""}.
               </>
             )}
           </div>
@@ -254,27 +259,28 @@ export default function LlantaConCarrusel() {
         {/* círculo rojo + llanta */}
         <div
           style={{
-            position: 'relative',
-            width: '100%',
-            height: '100%',
-            borderRadius: '50%',
-            border: '2px solid red',
+            position: "relative",
+            width: "100%",
+            height: "100%",
+            borderRadius: "50%",
+            border: "2px solid red",
             transform: `rotate(${rotation}deg)`,
-            transition: dragging.current || snapping.current ? 'none' : 'transform 0.3s',
-            pointerEvents: 'none',
+            transition:
+              dragging.current || snapping.current ? "none" : "transform 0.3s",
+            pointerEvents: "none",
           }}
         >
           <img
             src="/img/Llanta.png"
             alt="Llanta"
             style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
+              position: "absolute",
+              top: "50%",
+              left: "50%",
               width: dimensions.llantaSize,
               height: dimensions.llantaSize,
-              transform: 'translate(-50%, -50%)',
-              borderRadius: '50%',
+              transform: "translate(-50%, -50%)",
+              borderRadius: "50%",
               zIndex: 2,
             }}
             draggable={false}
@@ -289,14 +295,14 @@ export default function LlantaConCarrusel() {
               <div
                 key={c.id}
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   top: y - 5,
                   left: x - 5,
                   width: 7,
                   height: 7,
-                  borderRadius: '50%',
-                  background: 'red',
-                  pointerEvents: 'none',
+                  borderRadius: "50%",
+                  background: "red",
+                  pointerEvents: "none",
                 }}
               />
             );
@@ -307,28 +313,34 @@ export default function LlantaConCarrusel() {
         {cards.map((c, i) => {
           const ang = stepAngle * i + rotation;
           const rad = (ang * Math.PI) / 180;
-          const x = R + dimensions.radius * Math.cos(rad) - dimensions.baseCardWidth / 2;
-          const y = R + dimensions.radius * Math.sin(rad) - dimensions.baseCardHeight / 2;
+          const x =
+            R +
+            dimensions.radius * Math.cos(rad) -
+            dimensions.baseCardWidth / 2;
+          const y =
+            R +
+            dimensions.radius * Math.sin(rad) -
+            dimensions.baseCardHeight / 2;
           return (
             <div
               key={c.id}
               style={{
-                position: 'absolute',
+                position: "absolute",
                 top: y,
                 left: x,
                 width: dimensions.baseCardWidth,
                 height: dimensions.baseCardHeight,
-                background: '#fff',
+                background: "#fff",
                 borderRadius: 10,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'grab',
-                userSelect: 'none',
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "grab",
+                userSelect: "none",
                 transform: `scale(${scaleAnim[i]}) rotate(${ang + 90}deg)`,
                 zIndex: scaleAnim[i] > 1 ? 20 : 1,
-                overflow: 'hidden',
+                overflow: "hidden",
               }}
               draggable={false}
             >
@@ -338,12 +350,17 @@ export default function LlantaConCarrusel() {
                 style={{
                   width: dimensions.baseImageWidth,
                   height: dimensions.baseImageHeight,
-                  objectFit: 'cover',
+                  objectFit: "cover",
                   marginBottom: 6,
                 }}
                 draggable={false}
               />
-              <span style={{ fontWeight: 600, fontSize: dimensions.isMobile ? 12 : 14 }}>
+              <span
+                style={{
+                  fontWeight: 600,
+                  fontSize: dimensions.isMobile ? 12 : 14,
+                }}
+              >
                 {c.title}
               </span>
             </div>

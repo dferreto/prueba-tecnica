@@ -1,4 +1,4 @@
-// src/components/Header.jsx
+
 import React from 'react';
 import { FaWhatsapp, FaTiktok, FaInstagram } from 'react-icons/fa';
 import './header.css';
